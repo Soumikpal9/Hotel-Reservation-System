@@ -19,16 +19,16 @@ public class Executor {
 		System.out.println("Welcome To Hotel Reservation System!!!");
 		Scanner sc = new Scanner(System.in);
 		
-		List<HotelDetailsRewardCustomer> hotelBook = new ArrayList<>();
+		List<HotelDetails> hotelBook = new ArrayList<>();
 		HashMap<String, Float> totalPrice = new HashMap<>();
 		List<Integer> ratingList = new ArrayList<>(); 
 		LinkedHashMap<String, Float> linkedHashMap = new LinkedHashMap<>();
 		LinkedHashMap<Float, Integer> linkedHashMapRating = new LinkedHashMap<>();
 		ArrayList<Map.Entry<String, Float>> arrList = new ArrayList<>();
 		
-		HotelDetailsRewardCustomer lakewood = new HotelDetailsRewardCustomer("Lakewood", 80, 80, 3);
-		HotelDetailsRewardCustomer bridgewood = new HotelDetailsRewardCustomer("Bridgewood", 110, 50, 4);
-		HotelDetailsRewardCustomer ridgewood = new HotelDetailsRewardCustomer("Ridgewood", 100, 40, 5);
+		HotelDetails lakewood = new HotelDetails("Lakewood", 110, 90, 3);
+		HotelDetails bridgewood = new HotelDetails("Bridgewood", 150, 50, 4);
+		HotelDetails ridgewood = new HotelDetails("Ridgewood", 220, 150, 5);
 		
 		hotelBook.add(lakewood);
 		hotelBook.add(bridgewood);
@@ -56,10 +56,10 @@ public class Executor {
 			int start  = checkin.getDay();
 			for(int i = 0; i < noOfDays; i++) {
 				if(start == 0 || start == 6) {
-					price += j.ratesRewardCustomerWeekend;
+					price += j.ratesRegularCustomerWeekend;
 				}
 				else {
-					price += j.ratesRewardCustomerWeekdays;
+					price += j.ratesRegularCustomerWeekdays;
 				}
 				start = (start + 1) % 7;
 			}
@@ -82,7 +82,7 @@ public class Executor {
 		int j = 0;
 		for(Map.Entry<String, Float> e : arrList){
 			linkedHashMap.put(e.getKey(), e.getValue());
-			for(HotelDetailsRewardCustomer i : hotelBook){
+			for(HotelDetails i : hotelBook){
 				if(i.name.equals(e.getKey())) {
 					if(j < 1) {
 						System.out.println("The Cheapest Hotel With Best Rating Found : " + e + " With Rating : " + i.ratings);
