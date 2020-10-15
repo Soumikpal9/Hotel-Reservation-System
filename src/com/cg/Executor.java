@@ -6,7 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -16,7 +18,8 @@ public class Executor {
 		Scanner sc = new Scanner(System.in);
 		
 		List<HotelDetails> hotelBook = new ArrayList<>();
-		TreeMap<String, Float> totalPrice = new TreeMap<>();
+		HashMap<String, Float> totalPrice = new HashMap<>();
+		List<Float> finalPrice = new ArrayList<>();
 		
 		HotelDetails lakewood = new HotelDetails("Lakewood", 110, 90, 3);
 		HotelDetails bridgewood = new HotelDetails("Bridgewood", 150, 50, 4);
@@ -51,10 +54,10 @@ public class Executor {
 				}
 				start = (start + 1) % 7;
 			}
+			finalPrice.add(price);
 			totalPrice.put(j.name, price);
 		}
-		
-		System.out.println("The Cheapest Hotel Found : " + totalPrice.firstEntry());
-		
+		String minHotel = Collections.min(totalPrice.keySet());
+		System.out.println("The Cheapest Hotel Found : " + minHotel + ", Total Price = " + totalPrice.get(minHotel));
 	}
 }
