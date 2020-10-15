@@ -26,5 +26,22 @@ public class Executor {
 		
 		System.out.println("Name Of Hotel And Rates Of Regular Customers Added");
 		
+		System.out.println("Enter the range of dates(comma seperated) : ");
+		String dateRange = sc.nextLine();
+		String[] dates = dateRange.split(",");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMMyyyy");
+		
+		Date checkin = (Date) sdf.parse(dates[0]);
+		Date checkout = (Date) sdf.parse(dates[1]);
+		long difference = checkout.getTime() - checkin.getTime();
+		float noOfDays = (difference/(1000*60*60*24)) + 1;
+		
+		for(HotelDetails i : hotelBook) {
+			totalPrice.add(noOfDays * i.ratesRegularCustomer);
+		}
+		
+		Collections.sort(totalPrice);
+		System.out.println("The Cheapest Hotel Found : " + hotelBook.get(0).name + ", Total Rate : " + totalPrice.get(0));
 	}
 }
