@@ -21,7 +21,7 @@ public class Executor {
 		
 		List<HotelDetails> hotelBook = new ArrayList<>();
 		HashMap<String, Float> totalPrice = new HashMap<>();
-		HashMap<Float, Integer> ratingWisePrice = new HashMap<>(); 
+		List<Integer> ratingList = new ArrayList<>(); 
 		LinkedHashMap<String, Float> linkedHashMap = new LinkedHashMap<>();
 		LinkedHashMap<Float, Integer> linkedHashMapRating = new LinkedHashMap<>();
 		ArrayList<Map.Entry<String, Float>> arrList = new ArrayList<>();
@@ -33,6 +33,10 @@ public class Executor {
 		hotelBook.add(lakewood);
 		hotelBook.add(bridgewood);
 		hotelBook.add(ridgewood);
+		
+		for(HotelDetails i : hotelBook) {
+			ratingList.add(i.ratings);
+		}
 		
 		System.out.println("Name And Ratings Of Hotel And Rates Of Regular Customers On Weekdays And Weekend Added");
 		
@@ -59,7 +63,6 @@ public class Executor {
 				}
 				start = (start + 1) % 7;
 			}
-			ratingWisePrice.put(price, j.ratings);
 			totalPrice.put(j.name, price);
 		}
 		
@@ -90,5 +93,7 @@ public class Executor {
 				}
 			}
 		}
+		
+		System.out.println("The Best Rated Hotel Found : " + arrList.get(arrList.size() - 1) + " With Rating : " + Collections.max(ratingList));
 	}
 }
