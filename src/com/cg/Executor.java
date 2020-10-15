@@ -2,6 +2,7 @@ package com.cg;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,17 +10,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 public class Executor {
+	
 	public static void main(String[] args) throws Exception {
 		System.out.println("Welcome To Hotel Reservation System!!!");
 		Scanner sc = new Scanner(System.in);
 		
 		List<HotelDetails> hotelBook = new ArrayList<>();
 		HashMap<String, Float> totalPrice = new HashMap<>();
-		List<Float> finalPrice = new ArrayList<>();
+		HashMap<Float, Integer> ratingWisePrice = new HashMap<>(); 
+		LinkedHashMap<String, Float> linkedHashMap = new LinkedHashMap<>();
+		LinkedHashMap<Float, Integer> linkedHashMapRating = new LinkedHashMap<>();
+		ArrayList<Map.Entry<String, Float>> arrList = new ArrayList<>();
 		
 		HotelDetails lakewood = new HotelDetails("Lakewood", 110, 90, 3);
 		HotelDetails bridgewood = new HotelDetails("Bridgewood", 150, 50, 4);
@@ -54,10 +59,36 @@ public class Executor {
 				}
 				start = (start + 1) % 7;
 			}
-			finalPrice.add(price);
+			ratingWisePrice.put(price, j.ratings);
 			totalPrice.put(j.name, price);
 		}
-		String minHotel = Collections.min(totalPrice.keySet());
-		System.out.println("The Cheapest Hotel Found : " + minHotel + ", Total Price = " + totalPrice.get(minHotel));
+		
+		for(Map.Entry<String, Float> e : totalPrice.entrySet()) {
+			arrList.add(e);
+		}
+		
+		Comparator<Entry<String, Float>> valueComparator = new Comparator<Map.Entry<String, Float>>(){
+			@Override
+			public int compare(Map.Entry<String, Float> e1, Map.Entry<String, Float> e2) {
+				Float v1 = e1.getValue();
+				Float v2 = e2.getValue();
+				return v1.compareTo(v2);
+			}
+		};
+		
+		Collections.sort(arrList, valueComparator);
+		
+		int j = 0;
+		for(Map.Entry<String, Float> e : arrList) {
+			linkedHashMap.put(e.getKey(), e.getValue());
+			for(HotelDetails i : hotelBook) {
+				if(i.name.equals(e.getKey())) {
+					if(j < 1) {
+						System.out.println("The Cheapest Hotel With Best Rating Found : " + e + " With Rating : " + i.ratings);
+						j++;
+					}
+				}
+			}
+		}
 	}
 }
