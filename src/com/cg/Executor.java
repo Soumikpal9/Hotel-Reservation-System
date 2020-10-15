@@ -34,9 +34,8 @@ public class Executor {
 		hotelBook.add(bridgewood);
 		hotelBook.add(ridgewood);
 		
-		for(HotelDetailsRewardCustomer i : hotelBook) {
-			ratingList.add(i.ratings);
-		}
+		hotelBook.stream().forEach(i -> ratingList.add(i.ratings));
+		
 		
 		System.out.println("Name And Ratings Of Hotel And Rates Of Regular Customers On Weekdays And Weekend Added");
 		
@@ -51,9 +50,10 @@ public class Executor {
 		long difference = checkout.getTime() - checkin.getTime();
 		float noOfDays = (difference/(1000*60*60*24)) + 1;
 		
-		int start  = checkin.getDay();
-		for(HotelDetailsRewardCustomer j : hotelBook) {
+		
+		hotelBook.stream().forEach(j -> {
 			float price = 0;
+			int start  = checkin.getDay();
 			for(int i = 0; i < noOfDays; i++) {
 				if(start == 0 || start == 6) {
 					price += j.ratesRewardCustomerWeekend;
@@ -64,11 +64,9 @@ public class Executor {
 				start = (start + 1) % 7;
 			}
 			totalPrice.put(j.name, price);
-		}
+		});
 		
-		for(Map.Entry<String, Float> e : totalPrice.entrySet()) {
-			arrList.add(e);
-		}
+		totalPrice.entrySet().stream().forEach(e -> arrList.add(e));
 		
 		Comparator<Entry<String, Float>> valueComparator = new Comparator<Map.Entry<String, Float>>(){
 			@Override
@@ -82,9 +80,9 @@ public class Executor {
 		Collections.sort(arrList, valueComparator);
 		
 		int j = 0;
-		for(Map.Entry<String, Float> e : arrList) {
+		for(Map.Entry<String, Float> e : arrList){
 			linkedHashMap.put(e.getKey(), e.getValue());
-			for(HotelDetailsRewardCustomer i : hotelBook) {
+			for(HotelDetailsRewardCustomer i : hotelBook){
 				if(i.name.equals(e.getKey())) {
 					if(j < 1) {
 						System.out.println("The Cheapest Hotel With Best Rating Found : " + e + " With Rating : " + i.ratings);
@@ -94,6 +92,5 @@ public class Executor {
 			}
 		}
 		
-		System.out.println("The Best Rated Hotel Found : " + arrList.get(arrList.size() - 1) + " With Rating : " + Collections.max(ratingList));
 	}
 }
