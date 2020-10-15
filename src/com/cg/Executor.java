@@ -18,15 +18,15 @@ public class Executor {
 		List<HotelDetails> hotelBook = new ArrayList<>();
 		TreeMap<String, Float> totalPrice = new TreeMap<>();
 		
-		HotelDetails lakewood = new HotelDetails("Lakewood", 110, 90);
-		HotelDetails bridgewood = new HotelDetails("Bridgewood", 150, 50);
-		HotelDetails ridgewood = new HotelDetails("Ridgewood", 220, 150);
+		HotelDetails lakewood = new HotelDetails("Lakewood", 110, 90, 3);
+		HotelDetails bridgewood = new HotelDetails("Bridgewood", 150, 50, 4);
+		HotelDetails ridgewood = new HotelDetails("Ridgewood", 220, 150, 5);
 		
 		hotelBook.add(lakewood);
 		hotelBook.add(bridgewood);
 		hotelBook.add(ridgewood);
 		
-		System.out.println("Name Of Hotel And Rates Of Regular Customers On Weekdays And Weekend Added");
+		System.out.println("Name And Ratings Of Hotel And Rates Of Regular Customers On Weekdays And Weekend Added");
 		
 		System.out.println("Enter the range of dates(comma seperated) : ");
 		String dateRange = sc.nextLine();
