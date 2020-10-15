@@ -2,10 +2,12 @@ package com.cg;
 
 public class HotelDetails {
 	public String name;
-	public int ratesRegularCustomer;
+	public int ratesRegularCustomerWeekdays;
+	public int ratesRegularCustomerWeekend;
 	
-	public HotelDetails(String name, int ratesRegularCustomer) {
+	public HotelDetails(String name, int ratesRegularCustomerWeekdays, int ratesRegularCustomerWeekend) {
 		this.name = name;
-		this.ratesRegularCustomer = ratesRegularCustomer;
+		this.ratesRegularCustomerWeekdays = ratesRegularCustomerWeekdays;
+		this.ratesRegularCustomerWeekend = ratesRegularCustomerWeekend;
 	}
 }
